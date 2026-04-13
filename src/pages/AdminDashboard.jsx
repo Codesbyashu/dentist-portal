@@ -11,7 +11,7 @@ export default function AdminDashboard() {
   useEffect(() => { fetchData() }, [])
 
   async function fetchData() {
-    const todayStr = new Date().toISOString().split('T')[0]
+    const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' })
     const [allAppts, todayRes, patients] = await Promise.all([
       supabase.from('appointments').select('id, status'),
       supabase.from('appointments').select('*, profiles(full_name, phone), doctors(name)').eq('appointment_date', todayStr).order('appointment_time'),
